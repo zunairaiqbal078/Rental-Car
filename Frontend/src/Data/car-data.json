@@ -1,0 +1,76 @@
+ {
+    "cars": [
+      {
+        "id": 1,
+        "model": "Model 3",
+        "brand": "Tesla",
+        "type": "electric",
+        "year": 2023,
+        "price": 45000,
+        "color": "white"
+      },
+      {
+        "id": 2,
+        "model": "Civic",
+        "brand": "Honda",
+        "type": "sedan",
+        "year": 2022,
+        "price": 25000,
+        "color": "blue"
+      },
+      {
+        "id": 3,
+        "model": "Wrangler",
+        "brand": "Jeep",
+        "type": "suv",
+        "year": 2023,
+        "price": 35000,
+        "color": "black"
+      },
+      {
+        "id": 4,
+        "model": "F-150",
+        "brand": "Ford",
+        "type": "truck",
+        "year": 2022,
+        "price": 42000,
+        "color": "red"
+      },
+      {
+        "id": 5,
+        "model": "Leaf",
+        "brand": "Nissan",
+        "type": "electric",
+        "year": 2023,
+        "price": 28000,
+        "color": "silver"
+      },
+      {
+        "id": 6,
+        "model": "Camry",
+        "brand": "Toyota",
+        "type": "sedan",
+        "year": 2022,
+        "price": 27000,
+        "color": "gray"
+      },
+      {
+        "id": 7,
+        "model": "X5",
+        "brand": "BMW",
+        "type": "suv",
+        "year": 2023,
+        "price": 6000,
+        "color": "black"
+      },
+      {
+        "id": 8,
+        "model": "Silverado",
+        "brand": "Chevrolet",
+        "type": "sedan",
+        "year": 2022,
+        "price": 5000,
+        "color": "white"
+      }
+    ]
+  }
