@@ -12,21 +12,21 @@ const api = axios.create({
 });
 const initialState = {
   isAuthenticated: false,
-  token: localStorage.getItem("token"),
+  token: sessionStorage.getItem("token"),
   isLoading: false,
   user: null,
   error: null,
 };
 
 export const registerUser = createAsyncThunk(
-  "auth/register",
+  "auth/signup",
   async (formData, { rejectWithValue }) => {
     try {
       const response = await api.post("/signup", formData);
       toast.success("Registration successful!");
       return response.data;
     } catch (error) {
-      const message = error.response?.data?.message || "Registration failed";
+      const message = error.response?.data?.message;
       toast.error(message);
       return rejectWithValue(message);
     }
@@ -39,10 +39,10 @@ export const loginUser = createAsyncThunk(
     try {
       const response = await api.post("/login", formData);
       toast.success("Login successful!");
-      localStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
-      const message = error.response?.data?.message || "Login failed";
+      const message = error.response?.data?.message;
       toast.error(message);
       return rejectWithValue(message);
     }
@@ -52,7 +52,7 @@ export const loginUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk("auth/logout", async () => {
   try {
     await api.post("/logout");
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     toast.success("Logged out successfully!");
     return { isAuthenticated: false, user: null };
   } catch (error) {

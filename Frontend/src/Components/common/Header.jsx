@@ -50,7 +50,7 @@ function Header() {
           <div className="space-x-4 md:flex" onClick={() => setLogin(!isLogin)}>
             {isLogin ? (
               <>
-                <Link to="/userdashboard">
+                <Link to="/user">
                   <button className="px-4 py-2 text-teal-700 transition bg-white rounded-md hover:bg-gray-100">
                     <RxAvatar />
                   </button>
@@ -80,7 +80,7 @@ function Header() {
         >
           {isLogin ? (
             <>
-              <Link to="/userdashboard">
+              <Link to="/user">
                 <button className="px-4 py-2 text-teal-700 transition bg-white rounded-md hover:bg-gray-100">
                   <RxAvatar />
                 </button>{" "}

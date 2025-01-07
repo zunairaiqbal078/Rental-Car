@@ -1,7 +1,6 @@
 const User = require("../models/user"); // Import the User model
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
 // Function to handle user registration
 const registerUser = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
@@ -50,42 +49,40 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  // Check if both email and password are provided
   if (!email || !password) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
   try {
-    // Find user by email
     const user = await User.findOne({ email });
-
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
 
-    // Compare provided password with stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
-
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid credentials." });
     }
 
-    // Generate a JWT token
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, role: user.role },
       process.env.SECRET_KEY,
-      { expiresIn: "1d" }
+      {
+        expiresIn: "1d",
+      }
     );
 
-    console.log(token);
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+    console.log("Token set as cookie:", token);
 
-    // Send token and success message in response
     return res.status(200).json({
       message: "Logged in successfully.",
-      token,
-      success: true,
-      email,
-      name: user.name,
+      user: { name: user.name, email: user.email },
     });
   } catch (error) {
     console.error(error);
@@ -93,10 +90,12 @@ const loginUser = async (req, res) => {
   }
 };
 
-const logoutUser = () => {
-  // Clear the JWT token from the local storage
-  localStorage.removeItem("token");
-  return true;
+const logoutUser = (req, res) => {
+  res.clearCookie("authToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  });
+  return res.status(200).json({ message: "Logged out successfully." });
 };
 
 module.exports = { registerUser, loginUser, logoutUser }; // Export the function

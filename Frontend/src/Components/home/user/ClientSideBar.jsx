@@ -3,18 +3,26 @@ import {
   FaBars,
   FaTimes,
   FaTachometerAlt,
-  FaCar,
   FaCalendarAlt,
-  FaUserFriends,
-  FaListAlt,
   FaUserCircle,
+  FaHome,
   FaSignOutAlt,
 } from "react-icons/fa";
 import { IoChatbubblesOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { logoutUser } from "../../../store/auth-slice";
+import { useDispatch } from "react-redux";
 
-function AdminSidebar() {
+function UserSidebar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/");
+  };
 
   return (
     <div
@@ -35,40 +43,26 @@ function AdminSidebar() {
         </button>
       </div>
 
+      {/* Navigation Links */}
       <nav className="flex-grow p-4 space-y-2">
         {[
           {
-            to: "/admin/dashboard",
+            to: "/user/dashboard",
             label: "Dashboard",
             icon: <FaTachometerAlt />,
           },
           {
-            to: "/admin/users",
-            label: "Users",
-            icon: <FaUserFriends />,
-          },
-          {
-            to: "/admin/category",
-            label: "Categories",
-            icon: <FaListAlt />,
-          },
-          {
-            to: "/admin/cars",
-            label: "Cars",
-            icon: <FaCar />,
-          },
-          {
-            to: "/admin/booking",
-            label: "Bookings",
-            icon: <FaCalendarAlt />,
-          },
-          {
-            to: "/admin/profile",
+            to: "/user/profile",
             label: "Profile",
             icon: <FaUserCircle />,
           },
           {
-            to: "/admin/livechat",
+            to: "/user/booking",
+            label: "Bookings",
+            icon: <FaCalendarAlt />,
+          },
+          {
+            to: "/user/livechat",
             label: "Live Chat",
             icon: <IoChatbubblesOutline />,
           },
@@ -88,15 +82,34 @@ function AdminSidebar() {
             </span>
           </NavLink>
         ))}
-        <button className="flex items-center px-4 py-2 text-sm font-medium rounded-md gap-x-4 hover:bg-cyan-800">
+
+        {/* Logout Button */}
+        <button
+          className="flex items-center px-4 py-2 text-sm font-medium rounded-md gap-x-4 hover:bg-cyan-800"
+          onClick={handleLogout}
+        >
           <span className="text-lg">
             <FaSignOutAlt />
           </span>
-          <span className={`${!isSidebarOpen && "hidden"}`}>Logout </span>
+          <span className={`${!isSidebarOpen && "hidden"}`}>Logout</span>
         </button>
       </nav>
+
+      {/* Back to Home Button */}
+      <div className="flex flex-col items-center justify-center mb-4 ">
+        <Link to="/">
+          <button className="flex items-center px-4 py-2 text-sm font-medium rounded-md gap-x-4">
+            <span className="text-lg">
+              <FaHome />
+            </span>
+            <span className={`${!isSidebarOpen && "hidden"}`}>
+              Back to Home
+            </span>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
 
-export default AdminSidebar;
+export default UserSidebar;
