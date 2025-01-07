@@ -1,12 +1,14 @@
 import React from "react";
-import UserSidebar from "../Components/home/clientDashboard/ClientSideBar";
+import UserSidebar from "../Components/home/user/ClientSideBar";
 import { Outlet } from "react-router-dom";
 
 function ClientLayout() {
   return (
-    <div>
+    <div className="flex h-screen">
       <UserSidebar />
-      <Outlet />
+      <div className="flex-1 p-6 overflow-y-auto bg-gray-100">
+        <Outlet />
+      </div>
     </div>
   );
 }

@@ -5,10 +5,12 @@ import { Outlet } from "react-router-dom";
 
 function AdminLayout() {
   return (
-    <div>
+    <div className="flex h-screen">
       <AdminSideBar />
 
-      <Outlet />
+      <div className="flex-1 p-6 overflow-y-auto bg-gray-100">
+        <Outlet />
+      </div>
     </div>
   );
 }

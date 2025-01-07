@@ -19,6 +19,8 @@ import Account from "./pages/client-pages/Account";
 import { ToastContainer } from "react-toastify";
 import ClientLayout from "./Layout/clientLayout";
 import LiveChat from "./pages/client-pages/LiveChat";
+import UserDashboard from "./Components/home/user/dashboard/Dashboard";
+import AllUser from "./Components/admin/AllUser";
 
 function App() {
   return (
@@ -39,15 +41,17 @@ function App() {
           <Route path="login" element={<LogIn />} />
           <Route path="signup" element={<SignUp />} />
         </Route>
+
         <Route path="/" element={<Layout />}>
           <Route path="explore/viewDetails" element={<ViewDetails />} />
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path="explore" element={<ExploreCars />} />
-        </Route>
-        <Route path="/userdashboard" element={<ClientLayout />}>
           <Route path="reviews" element={<Reviews />} />
+        </Route>
+        <Route path="/user" element={<ClientLayout />}>
+          <Route path="dashboard" element={<UserDashboard />} />
           <Route path="livechat" element={<LiveChat />} />
           <Route path="booking" element={<BookCar />} />
           <Route path="profile" element={<Account />} />
@@ -56,6 +60,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="booking" element={<Booking />} />
           <Route path="Cars" element={<Cars />} />
+          <Route path="users" element={<AllUser />} />
         </Route>
         <Route path="/noFound" element={<NotFound />} />
       </Routes>

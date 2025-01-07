@@ -24,7 +24,7 @@ function LogIn() {
     dispatch(loginUser(data))
       .unwrap()
       .then(() => {
-        navigate("/userdashboard");
+        navigate("/user");
       })
       .catch((error) => {
         console.error("Login failed: ", error);

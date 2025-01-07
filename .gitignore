@@ -4,3 +4,5 @@ Frontend/.env
 Backend/.env
 Frontend/package-lock.json
 Backend/package-lock.json
+
+.codegpt

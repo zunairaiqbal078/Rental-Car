@@ -1,9 +1,7 @@
-// middlewares/verifyAuth.js
 const jwt = require("jsonwebtoken");
 
-const verifyAuth = (req, res, next) => {
-  const token =
-    req.cookies.authToken || req.headers.authorization?.split(" ")[1];
+const verifyAdmin = (req, res, next) => {
+  const token = req.cookies.authToken;
 
   if (!token) {
     return res.status(401).json({ message: "Unauthorized access" });
@@ -11,6 +9,10 @@ const verifyAuth = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+    if (decoded.role !== "admin") {
+      return res.status(403).json({ message: "Access denied: Admins only" });
+    }
     req.user = decoded;
     next();
   } catch (error) {
@@ -18,4 +20,4 @@ const verifyAuth = (req, res, next) => {
   }
 };
 
-module.exports = verifyAuth;
+module.exports = verifyAdmin;
