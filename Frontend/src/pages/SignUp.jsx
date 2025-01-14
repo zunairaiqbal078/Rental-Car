@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import image from ".././assets/signup.png";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../store/auth-slice";
+import { toast } from "react-toastify";
+import { register as registerUser } from "../api/authApi";
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   // React Form Hook
   const {
@@ -19,17 +20,14 @@ function SignUp() {
   } = useForm();
   const password = watch("password");
 
-  const onSubmit = (data) => {
-    dispatch(registerUser(data))
-      .unwrap()
-      .then(() => {
-        setTimeout(() => {
-          navigate("/auth/login");
-        }, 3000);
-      })
-      .catch((error) => {
-        console.error("Registration failed: ", error);
-      });
+  const onSubmit = async (data) => {
+    try {
+      await registerUser(data);
+      toast.success("Registration successful!");
+      navigate("/auth/login");
+    } catch (error) {
+      toast.error(error.message);
+    }
 
     reset();
   };
@@ -50,11 +48,7 @@ function SignUp() {
           <p className="mt-2 text-center text-gray-200">
             Sign In and discover a great experience with us!
           </p>
-          <img
-            className="w-1/2 mt-10 mb-8"
-            src="../assets/signup.png"
-            alt=" image"
-          />
+          <img className="w-1/2 mt-10 mb-8" src={image} alt=" image" />
           <Link to="/auth/login">
             <button className="px-6 py-2 mt-6 text-lg font-semibold bg-white rounded-md text-neutral-700 hover:focus:outline-none focus:ring-2 focus:ring-indigo-300">
               Log In
@@ -101,7 +95,7 @@ function SignUp() {
               {...register("email", {
                 required: "Email Required*",
                 pattern: {
-                  value: " /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i",
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i,
                   message: "invalid email address",
                 },
               })}
@@ -122,7 +116,7 @@ function SignUp() {
                   required: "Password Required*",
                   pattern: {
                     value:
-                      /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z]).{8}$/,
+                      "/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z]).{8}$/",
                     message:
                       "Password must be at least 8 characters long, contain uppercase, lowercase, a digit, and a special character",
                   },

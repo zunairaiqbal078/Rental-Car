@@ -1,4 +1,5 @@
 import React from "react";
+import image from ".././assets/signup.png";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
@@ -6,9 +7,10 @@ import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookCircle } from "react-icons/bi";
 import { IoLogoLinkedin } from "react-icons/io5";
 import { useState } from "react";
-
 import { useDispatch } from "react-redux";
-import { loginUser } from "../store/auth-slice";
+import { setUser } from "../store/auth-slice";
+import { login } from "../api/authApi";
+import { toast } from "react-toastify";
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -20,16 +22,20 @@ function LogIn() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    dispatch(loginUser(data))
-      .unwrap()
-      .then(() => {
-        navigate("/user");
-      })
-      .catch((error) => {
-        console.error("Login failed: ", error);
-      });
-
+  const onSubmit = async (data) => {
+    try {
+      const response = await login(data);
+      dispatch(setUser(response));
+      const role = response.user.role;
+      if (role === "admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/");
+      }
+      toast.success("Login successful!");
+    } catch (error) {
+      toast.error(error.message);
+    }
     reset();
   };
 
@@ -122,11 +128,7 @@ function LogIn() {
           <p className="mt-2 text-center text-gray-200">
             Sign up and discover a great experience with us!
           </p>
-          <img
-            className="w-1/2 mt-10 mb-8"
-            src="src/assets/HomeImages/pixeltrue-time-management.png"
-            alt=" image"
-          />
+          <img className="w-1/2 mt-10 mb-8" src={image} alt=" image" />
           <Link to="/auth/signup">
             <button className="px-6 py-2 mt-6 text-lg font-semibold bg-white rounded-md text-neutral-700 hover:focus:outline-none focus:ring-2 focus:ring-indigo-300">
               Register

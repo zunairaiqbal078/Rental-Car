@@ -16,7 +16,7 @@ async function createAdmin() {
     name: "Admin User",
     email: "admin@example.com",
     password: hashedPassword,
-    isAdmin: true,
+    role: "admin",
   });
 
   await adminUser.save();

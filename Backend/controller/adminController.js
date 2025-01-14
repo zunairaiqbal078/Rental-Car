@@ -14,10 +14,11 @@ const getAllUsers = async (req, res) => {
 // Get all contact messages
 const getAllContacts = async (req, res) => {
   try {
-    const contacts = await Contact.find({});
-    res.status(200).json(contacts);
+    const messages = await Contact.find().sort({ createdAt: -1 });
+    return res.status(200).json(messages);
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch contact messages" });
+    console.error("Error fetching contact messages:", error);
+    return res.status(500).json({ message: "Failed to fetch messages." });
   }
 };
 

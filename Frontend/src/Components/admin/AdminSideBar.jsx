@@ -48,6 +48,11 @@ function AdminSidebar() {
             icon: <FaUserFriends />,
           },
           {
+            to: "/admin/messages",
+            label: "Messages",
+            icon: <IoChatbubblesOutline />,
+          },
+          {
             to: "/admin/category",
             label: "Categories",
             icon: <FaListAlt />,

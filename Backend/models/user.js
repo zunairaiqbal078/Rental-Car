@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -17,20 +16,25 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    photo: {
+      type: String,
+      default: "default_user.jpg", // Default profile picture
+    },
     password: {
       type: String,
       required: true,
     },
+    location: {
+      type: String, // User's location
+      required: false, // Make it optional initially
+    },
     role: {
       type: String,
+      enum: ["user", "admin"],
       default: "user",
     },
   },
   { timestamps: true }
 );
-
-// Create the model
 const User = mongoose.model("User", userSchema);
-
-// Export the model
 module.exports = User;

@@ -14,13 +14,14 @@ import Dashboard from "./pages/admin-pages/Dashboard";
 import Booking from "./pages/admin-pages/Booking";
 import Cars from "./pages/admin-pages/Cars";
 import NotFound from "./pages/NotFound";
-import BookCar from "./pages/client-pages/BookCar";
-import Account from "./pages/client-pages/Account";
 import { ToastContainer } from "react-toastify";
 import ClientLayout from "./Layout/clientLayout";
-import LiveChat from "./pages/client-pages/LiveChat";
-import UserDashboard from "./Components/home/user/dashboard/Dashboard";
+import LiveChat from "./pages/userDashboard/LiveChat";
+import UserDashboard from "./pages/userDashboard/dashboard";
 import AllUser from "./Components/admin/AllUser";
+import Profile from "./pages/userDashboard/profile";
+import Booked from "./pages/userDashboard/booked";
+import Messages from "./pages/admin-pages/Messages";
 
 function App() {
   return (
@@ -53,14 +54,15 @@ function App() {
         <Route path="/user" element={<ClientLayout />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="livechat" element={<LiveChat />} />
-          <Route path="booking" element={<BookCar />} />
-          <Route path="profile" element={<Account />} />
+          <Route path="booking" element={<Booked />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="booking" element={<Booking />} />
           <Route path="Cars" element={<Cars />} />
           <Route path="users" element={<AllUser />} />
+          <Route path="messages" element={<Messages />} />
         </Route>
         <Route path="/noFound" element={<NotFound />} />
       </Routes>

@@ -1,4 +1,4 @@
-const User = require("../models/user"); // Import the User model
+const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 // Function to handle user registration
@@ -65,12 +65,20 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role },
+      {
+        id: user._id,
+        email: user.email,
+        role: user.role,
+        password: user.password,
+        photo: user.photo,
+        location: user.location,
+      },
       process.env.SECRET_KEY,
       {
         expiresIn: "1d",
       }
     );
+    console.log("token", token);
 
     res.cookie("authToken", token, {
       httpOnly: true,
@@ -78,11 +86,18 @@ const loginUser = async (req, res) => {
       sameSite: "strict",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
-    console.log("Token set as cookie:", token);
 
     return res.status(200).json({
+      token,
       message: "Logged in successfully.",
-      user: { name: user.name, email: user.email },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        photo: user.photo,
+        location: user.location,
+      },
     });
   } catch (error) {
     console.error(error);

@@ -4,12 +4,12 @@ const {
   registerUser,
   loginUser,
   logoutUser,
-} = require("../../controller/userController");
+} = require("../controller/userController");
 // Define the /signup route
 
 router.post("/signup", registerUser);
 router.post("/login", loginUser);
-router.get("/logout", logoutUser);
+router.post("/logout", logoutUser);
 
 // Export the router
 module.exports = router;

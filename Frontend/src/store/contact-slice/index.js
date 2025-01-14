@@ -1,20 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { jsonInstance } from "../../api/BaseUrl";
 import { toast } from "react-toastify";
 
-const API_URL = "http://localhost:4000/user";
-const api = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 export const submitContactForm = createAsyncThunk(
   "/user/contact",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await api.post("/user/contact", formData);
+      const response = await jsonInstance.post("/user/contact", formData);
       toast.success("Message sent successfully!");
       return response.data;
     } catch (error) {
