@@ -9,6 +9,6 @@ const {
 
 router.post("/contact", submitContactForm);
 router.get("/profile", verifyAuth, getUserProfile);
-router.put("/profile", verifyAuth, updateUserProfile);
+router.patch("/update-profile", verifyAuth, updateUserProfile);
 
 module.exports = router;

@@ -2,10 +2,12 @@ const express = require("express");
 const connectDb = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const authRouter = require("./routes/auth/authRouter");
+const authRouter = require("./routes/authRouter");
 const userRoute = require("./routes/userRoute");
 const cookieParser = require("cookie-parser");
-const adminRoute = require("./routes/auth/adminRoute");
+const adminRoute = require("./routes/adminRoute");
+const carRoute = require("./routes/carRoute");
+
 const app = express();
 dotenv.config();
 // Middleware
@@ -19,6 +21,8 @@ app.use(
 app.use(cookieParser());
 
 // Routes
+
+app.use("/car", carRoute);
 app.use("/auth", authRouter);
 app.use("/user", userRoute);
 app.use("/admin", adminRoute);

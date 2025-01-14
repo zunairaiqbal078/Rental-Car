@@ -1,130 +1,38 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { createSlice } from "@reduxjs/toolkit";
 
-const API_URL = "http://localhost:4000/auth";
-const api = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 const initialState = {
-  isAuthenticated: false,
+  user: JSON.parse(sessionStorage.getItem("user")) || null,
   token: sessionStorage.getItem("token"),
+  isAuthenticated: !!sessionStorage.getItem("user"),
   isLoading: false,
-  user: null,
   error: null,
 };
-
-export const registerUser = createAsyncThunk(
-  "auth/signup",
-  async (formData, { rejectWithValue }) => {
-    try {
-      const response = await api.post("/signup", formData);
-      toast.success("Registration successful!");
-      return response.data;
-    } catch (error) {
-      const message = error.response?.data?.message;
-      toast.error(message);
-      return rejectWithValue(message);
-    }
-  }
-);
-
-export const loginUser = createAsyncThunk(
-  "auth/login",
-  async (formData, { rejectWithValue }) => {
-    try {
-      const response = await api.post("/login", formData);
-      toast.success("Login successful!");
-      sessionStorage.setItem("token", response.data.token);
-      return response.data;
-    } catch (error) {
-      const message = error.response?.data?.message;
-      toast.error(message);
-      return rejectWithValue(message);
-    }
-  }
-);
-
-export const logoutUser = createAsyncThunk("auth/logout", async () => {
-  try {
-    await api.post("/logout");
-    sessionStorage.removeItem("token");
-    toast.success("Logged out successfully!");
-    return { isAuthenticated: false, user: null };
-  } catch (error) {
-    toast.error("Logout failed");
-    return { isAuthenticated: false, user: null };
-  }
-});
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    resetAuthState: (state) => {
+    setUser: (state, action) => {
+      const { token, user } = action.payload;
+
+      state.user = user;
+      state.token = token;
+      state.isAuthenticated = true;
       state.error = null;
-      state.isLoading = false;
+
+      // Persist in sessionStorage
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("user", JSON.stringify(user));
+    },
+    logoutUser: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.token = null;
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
     },
   },
-  extraReducers: (builder) => {
-    builder
-      //Registration logic
-      .addCase(registerUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isAuthenticated = false;
-        state.user = action.payload;
-        state.error = null;
-      })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.user = null;
-        state.isAuthenticated = false;
-        state.error = action.payload;
-      })
-
-      //Login Logic
-      .addCase(loginUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isAuthenticated = true;
-        state.user = action.payload.user;
-        state.error = null;
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.user = null;
-        state.isAuthenticated = false;
-        state.error = action.payload;
-      })
-      //Logout Logic
-      .addCase(logoutUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.isLoading = false;
-        state.isAuthenticated = false;
-        state.user = null;
-        state.error = null;
-      })
-      .addCase(logoutUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.user = null;
-        state.isAuthenticated = false;
-        state.error = action.payload;
-      });
-  },
 });
-export const { resetAuthState } = authSlice.actions;
+
+export const { setUser, logoutUser } = authSlice.actions;
 export default authSlice.reducer;
