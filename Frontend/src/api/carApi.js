@@ -1,17 +1,18 @@
-import { formDataInstance } from "./BaseUrl";
+import { formDataInstance, apiURL } from "./BaseUrl";
 
 export const createCar = async (data) => {
   try {
-    const response = await baseURL.post("/car/create-car", data);
+    const response = await apiURL.post("/car/create-car", data);
     return response.data;
   } catch (error) {
     const message = error.response?.data?.message || "Something went wrong!";
     throw new Error(message);
   }
 };
-export const getCar = async (id) => {
+
+export const getCarById = async (id) => {
   try {
-    const response = await baseURL.get(`/car/view-car/${id}`);
+    const response = await formDataInstance.get(`/car/view-car/${id}`);
     return response.data;
   } catch (error) {
     const message = error.response?.data?.message || "Something went wrong!";
@@ -20,7 +21,7 @@ export const getCar = async (id) => {
 };
 export const updateCar = async (id, data) => {
   try {
-    const response = await baseURL.put(`/car/update-car/${id}`, data);
+    const response = await apiURL.patch(`/car/update-car/${id}`, data);
     return response.data;
   } catch (error) {
     const message = error.response?.data?.message || "Something went wrong!";
@@ -29,7 +30,7 @@ export const updateCar = async (id, data) => {
 };
 export const deleteCar = async (id) => {
   try {
-    const response = await baseURL.delete(`/car/delete-car/${id}`);
+    const response = await formDataInstance.delete(`/car/delete-car/${id}`);
     return response.data;
   } catch (error) {
     const message = error.response?.data?.message || "Something went wrong!";
@@ -38,7 +39,7 @@ export const deleteCar = async (id) => {
 };
 export const searchCar = async (query) => {
   try {
-    const response = await baseURL.get(`/car/search?${query}`);
+    const response = await formDataInstance.get(`/car/search?${query}`);
     return response.data;
   } catch (error) {
     const message = error.response?.data?.message || "Something went wrong!";
@@ -47,7 +48,7 @@ export const searchCar = async (query) => {
 };
 export const getAllCars = async () => {
   try {
-    const response = await baseURL.get("/car/all-cars");
+    const response = await formDataInstance.get("/car/all-cars");
     return response.data;
   } catch (error) {
     const message = error.response?.data?.message || "Something went wrong!";

@@ -5,7 +5,7 @@ function ChooseUs() {
     <>
       <div className="py-10">
         <div className="max-w-5xl px-6 mx-auto">
-          <h2 className="mb-6 text-3xl font-semibold text-center text-blue-700">
+          <h2 className="mb-6 text-3xl font-semibold text-center text-yellow-600">
             Why Choose LuxeRentals?
           </h2>
           <ul className="space-y-4 text-gray-700">

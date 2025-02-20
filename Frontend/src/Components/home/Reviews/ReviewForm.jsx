@@ -5,7 +5,7 @@ function ReviewForm() {
   return (
     <>
       <div className="max-w-3xl p-8 mx-auto bg-white rounded-lg shadow-lg">
-        <h2 className="mb-6 text-2xl font-bold text-center text-blue-600">
+        <h2 className="mb-6 text-2xl font-bold text-center text-yellow-600">
           Share Your Reviews
         </h2>
         <form className="space-y-6">
@@ -40,7 +40,7 @@ function ReviewForm() {
           </div>
           <button
             type="submit"
-            className="w-full py-3 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700"
+            className="w-full py-3 text-white transition duration-300 bg-yellow-700 rounded-lg hover:bg-yellow-400"
             onClick={() => alert(`Thank you for rating us ${rating} stars!`)}
           >
             Send Message

@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs");
-const User = require("./models/User");
+const bcrypt = require("bcrypt");
+const User = require("../models/user");
 
 async function createAdmin() {
   const adminExists = await User.findOne({
@@ -10,11 +10,11 @@ async function createAdmin() {
     return;
   }
 
-  const hashedPassword = await bcrypt.hash("admin123", 10);
+  const hashedPassword = await bcrypt.hash("1234567890", 10);
 
   const adminUser = new User({
-    name: "Admin User",
-    email: "admin@example.com",
+    name: "Talan Dais",
+    email: "TalanDais@gmail.com",
     password: hashedPassword,
     role: "admin",
   });
@@ -23,4 +23,4 @@ async function createAdmin() {
   console.log("Admin user created successfully!");
 }
 
-createAdmin();
+module.exports = createAdmin;

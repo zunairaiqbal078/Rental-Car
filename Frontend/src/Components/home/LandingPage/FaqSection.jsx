@@ -8,10 +8,10 @@ function FaqSection() {
   const [activeFAQ, setActiveFAQ] = useState(null);
 
   return (
-    <section className="px-6 py-12 bg-gray-100">
+    <section className="px-6 py-12 bg-white">
       <div className="max-w-4xl mx-auto space-y-8">
         <h1 className="text-2xl font-bold text-center">
-          <span className="text-yellow-300">Frequently</span> Asked Questions
+          <span className="text-yellow-500">Frequently</span> Asked Questions
         </h1>
 
         <div className="space-y-4">
@@ -30,7 +30,7 @@ function FaqSection() {
               >
                 <span>{query.question}</span>
                 {activeFAQ === query.id ? (
-                  <IoIosArrowDropupCircle className="text-2xl text-blue-600" />
+                  <IoIosArrowDropupCircle className="text-2xl text-cyan-800" />
                 ) : (
                   <IoIosArrowDropdownCircle className="text-2xl text-gray-600" />
                 )}

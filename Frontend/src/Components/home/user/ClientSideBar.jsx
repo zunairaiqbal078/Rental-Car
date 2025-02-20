@@ -4,7 +4,8 @@ import {
   FaTimes,
   FaTachometerAlt,
   FaCalendarAlt,
-  FaUserCircle,
+  FaCog,
+  FaUser,
   FaSignOutAlt,
 } from "react-icons/fa";
 import { IoChatbubblesOutline } from "react-icons/io5";
@@ -16,6 +17,7 @@ import { logout } from "../../../api/authApi";
 
 function UserSidebar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isSettingsOpen, setSettingsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,7 +27,6 @@ function UserSidebar() {
       dispatch(logoutUser());
       toast.success("Logged out successfully!");
       navigate("/");
-      handleLogout;
     } catch (error) {
       toast.error("Failed to log out!");
     }
@@ -35,7 +36,7 @@ function UserSidebar() {
     <div
       className={`${
         isSidebarOpen ? "w-64" : "w-20"
-      } bg-cyan-900 text-white flex flex-col transition-all duration-300`}
+      } bg-gradient-to-r from-cyan-900 to-blue-900 text-white flex flex-col transition-all duration-300`}
     >
       {/* Sidebar Toggle */}
       <div className="flex items-center justify-between px-4 py-5 border-b border-gray-700">
@@ -56,13 +57,8 @@ function UserSidebar() {
             icon: <FaTachometerAlt />,
           },
           {
-            to: "/user/profile",
-            label: "Profile",
-            icon: <FaUserCircle />,
-          },
-          {
             to: "/user/booking",
-            label: "Bookings",
+            label: "My Bookings",
             icon: <FaCalendarAlt />,
           },
           {
@@ -76,7 +72,7 @@ function UserSidebar() {
             to={link.to}
             className={({ isActive }) =>
               `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-                isActive ? "bg-yellow-300 text-white" : "hover:bg-gray-800"
+                isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
               }`
             }
           >
@@ -88,16 +84,34 @@ function UserSidebar() {
         ))}
       </nav>
 
-      <div className="flex flex-col p-4 mb-4 ">
+      {/* Settings Dropdown */}
+      <div className="flex flex-col p-4 mb-4">
         <button
-          onClick={handleLogout}
-          className="flex items-center px-4 py-2 text-sm font-medium text-white rounded-md gap-x-4 hover:bg-gray-800"
+          onClick={() => setSettingsOpen(!isSettingsOpen)}
+          className="flex items-center px-4 py-2 text-sm font-medium text-white rounded-md gap-x-4 hover:bg-gray-700"
         >
-          <span className="text-lg">
-            <FaSignOutAlt />
-          </span>
-          <span className={`${!isSidebarOpen && "hidden"}`}>Logout</span>
+          <FaCog className="text-lg" />
+          <span className={`${!isSidebarOpen && "hidden"}`}>Settings</span>
         </button>
+
+        {isSettingsOpen && (
+          <div className="mt-2 space-y-2">
+            <NavLink
+              to="/user/profile"
+              className="flex items-center px-4 py-2 text-sm font-medium rounded-md gap-x-4 hover:bg-gray-700"
+            >
+              <FaUser className="text-md" />
+              <span className={`${!isSidebarOpen && "hidden"}`}>Profile</span>
+            </NavLink>
+            <button
+              onClick={handleLogout}
+              className="flex items-center w-full px-4 py-2 text-sm font-medium text-white rounded-md gap-x-4 hover:bg-gray-700"
+            >
+              <FaSignOutAlt className="text-md" />
+              <span className={`${!isSidebarOpen && "hidden"}`}>Logout</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

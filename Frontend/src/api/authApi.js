@@ -1,4 +1,4 @@
-import { baseURL, apiURL } from "./BaseUrl";
+import { baseURL, apiURL, formDataInstance, jsonInstance } from "./BaseUrl";
 
 // Login API
 export const login = async (data) => {
@@ -23,7 +23,6 @@ export const register = async (data) => {
 };
 
 // Logout API
-
 export const logout = async () => {
   try {
     const response = await baseURL.post("/auth/logout");
@@ -46,14 +45,38 @@ export const fetchProfile = async () => {
 };
 
 // Update Profile API
-
-export const updateProfile = async (data) => {
+export const updateProfile = async (id, data) => {
   try {
-    const response = await apiURL.patch("/user/update-profile", data);
+    const response = await formDataInstance.patch(
+      `/user/update-profile/${id}`,
+      data
+    );
+    console.log("Update Profile Response:", response.data);
     return response.data;
   } catch (error) {
     const message =
       error.response?.data?.message || "Failed to update profile!";
+    throw new Error(message);
+  }
+};
+
+//Fetch All Users
+export const fetchAllUsers = async () => {
+  try {
+    const response = await formDataInstance.get("/admin/users");
+    return response.data;
+  } catch (error) {
+    console.log("error", error);
+    throw new Error("Failed to fetch all users!");
+  }
+};
+//Delete User by Id
+export const deleteUser = async (id) => {
+  try {
+    const response = await formDataInstance.delete(`/admin/delete-user/${id}`);
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.message || "Something went wrong!";
     throw new Error(message);
   }
 };

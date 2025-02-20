@@ -5,7 +5,7 @@ function MissionSection() {
     <>
       <div className="py-10 bg-gray-100">
         <div className="max-w-5xl px-6 mx-auto">
-          <h2 className="mb-6 text-3xl font-semibold text-center text-blue-700">
+          <h2 className="mb-6 text-3xl font-semibold text-center text-yellow-600">
             Our Mission and Values
           </h2>
           <p className="text-center text-gray-700">

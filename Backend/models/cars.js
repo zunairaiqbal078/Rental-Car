@@ -10,7 +10,15 @@ const carSchema = new mongoose.Schema(
     type: {
       type: String,
       required: [true, "Car type is required"],
-      enum: ["SUV", "Sedan", "Hatchback", "Truck", "Convertible"], // Example types
+      enum: [
+        "Suv",
+        "Sedan",
+        "Hatchback",
+        "Truck",
+        "Convertible",
+        "Luxury",
+        "Coupe",
+      ],
     },
     brand: {
       type: String,
@@ -19,10 +27,11 @@ const carSchema = new mongoose.Schema(
     location: {
       type: String,
       required: [true, "Car location is required"],
+      enum: ["Lahore", "Sahiwal", "Okara"],
     },
     availability: {
       type: Boolean,
-      default: true, // True if the car is available for rent
+      default: true,
     },
     pricePerDay: {
       type: Number,
@@ -39,9 +48,9 @@ const carSchema = new mongoose.Schema(
       required: [true, "Fuel type is required"],
       enum: ["Petrol", "Diesel", "Electric", "Hybrid"],
     },
-    image: {
-      type: String,
-      required: [true, "Car image URL is required"],
+    images: {
+      type: [String], // Array of image URLs
+      // required: [true, "At least one image URL is required"],
     },
     description: {
       type: String,
