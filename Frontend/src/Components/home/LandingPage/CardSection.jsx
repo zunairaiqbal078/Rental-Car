@@ -8,11 +8,11 @@ function CardSection() {
     <>
       <section>
         <div className="flex items-center justify-center  h-[40vh]">
-          <div className="flex flex-col items-center max-w-2xl mx-auto text-center px-7 h-1/2">
+          <div className="flex flex-col items-center max-w-3xl mx-auto text-center px-7 h-1/2">
             <h1 className="text-2xl font-bold ">
-              How It <span className="text-yellow-300">Works</span>
+              How It <span className="text-yellow-500">Works</span>
             </h1>
-            <p className="mt-4 font-serif">
+            <p className="mt-4 font-serif text-lg">
               <q>
                 Our platform is designed to make it easy for you to find and
                 book a ride service in affordable price. You can browse all of
@@ -22,7 +22,7 @@ function CardSection() {
             </p>
           </div>
         </div>
-        <div className="flex justify-center gap-6 mb-12 max-md:flex-col max-md:mx-11">
+        <div className="flex justify-center gap-6 mb-12 mt-10 max-md:flex-col max-md:mx-11">
           <Card
             image={<GiTakeMyMoney size={40} />}
             title={"Your pick of rides at low price"}

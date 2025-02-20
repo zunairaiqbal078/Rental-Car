@@ -1,23 +1,17 @@
-const jwt = require("jsonwebtoken");
+const verifyAuth = require("./authJwtToken"); // Import verifyUser
 
 const verifyAdmin = (req, res, next) => {
-  const token = req.cookies.authToken;
+  verifyAuth(req, res, () => {
+    console.log(" Checking Admin Role...");
+    console.log("admin role", req.user);
 
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized access" });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-
-    if (decoded.role !== "admin") {
-      return res.status(403).json({ message: "Access denied: Admins only" });
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: " Access Denied: Admins Only." });
     }
-    req.user = decoded;
+
+    console.log("✅ Admin Verified:", req.user);
     next();
-  } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
-  }
+  });
 };
 
 module.exports = verifyAdmin;

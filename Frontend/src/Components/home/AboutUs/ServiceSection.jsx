@@ -5,7 +5,7 @@ function ServiceSection() {
     <>
       <div className="py-10 bg-gray-100">
         <div className="max-w-5xl px-6 mx-auto">
-          <h2 className="mb-6 text-3xl font-semibold text-center text-blue-700">
+          <h2 className="mb-6 text-3xl font-semibold text-center text-yellow-600">
             Services Offered
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

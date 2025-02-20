@@ -10,11 +10,11 @@ function HelpUsSection() {
   const [operator, setOperator] = useState(null);
   return (
     <>
-      <section className="px-6 py-12 bg-gradient-to-l from-teal-500/20 via-cyan-700/2 to-cyan-800/25">
+      <section className="px-6 py-12 bg-white">
         <div className="flex flex-col justify-between mx-6 gap-7 md:flex-row ">
-          <div className="w-full p-6 border rounded-lg shadow-lg md:w-1/2">
+          <div className="w-full p-6  rounded-lg bg-gray-100 md:w-1/2  ">
             <h1 className="max-w-sm px-2 mb-20 text-2xl font-bold">
-              <span className="text-yellow-400">Help Us </span>
+              <span className="text-yellow-500">Help Us </span>
               to keep you safe from scam and fraud
             </h1>
             <div className="space-y-4 ">
@@ -22,21 +22,21 @@ function HelpUsSection() {
                 <details
                   key={faq.id}
                   open={operator === faq.id}
-                  className="px-2 py-2 font-serif border border-gray-300 rounded-md group hover:border-blue-600"
+                  className="px-2 py-2 font-serif border border-gray-300 rounded-md group hover:border-cyan-800"
                 >
                   <summary className="flex items-center justify-between text-lg font-medium ">
                     {faq.title}
                     <span
-                      className="text-xl font-extrabold transition-transform transform cursor-pointer hover:text-blue-600"
+                      className="text-xl font-extrabold transition-transform transform cursor-pointer hover:text-cyan-800"
                       onClick={(e) => {
                         e.preventDefault();
                         setOperator(operator === faq.id ? null : faq.id);
                       }}
                     >
                       {operator === faq.id ? (
-                        <IoIosArrowDropupCircle className="text-xl text-gray-800 hover:text-blue-600" />
+                        <IoIosArrowDropupCircle className="text-xl text-gray-800 hover:text-cyan-800" />
                       ) : (
-                        <IoIosArrowDropdownCircle className="text-xl text-gray-800 hover:text-blue-600" />
+                        <IoIosArrowDropdownCircle className="text-xl text-gray-800 hover:text-cyan-800" />
                       )}
                     </span>
                   </summary>
@@ -56,7 +56,7 @@ function HelpUsSection() {
             </p>
             <Link to="/about">
               {" "}
-              <button className="px-6 py-3 text-white transition bg-blue-600 rounded-full hover:bg-blue-700 ml-7">
+              <button className="px-6 py-3 text-white transition bg-yellow-700 rounded-full hover:bg-yellow-500 ml-7">
                 Learn More
               </button>
             </Link>

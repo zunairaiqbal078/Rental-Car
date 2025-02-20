@@ -31,7 +31,7 @@ function ContactForm() {
 
   return (
     <div className="max-w-3xl p-8 mx-auto bg-white rounded-lg shadow-lg">
-      <h2 className="mb-6 text-2xl font-bold text-center text-blue-600">
+      <h2 className="mb-6 text-2xl font-bold text-center text-yellow-600">
         Send Us a Message
       </h2>
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -122,7 +122,7 @@ function ContactForm() {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-700"
+          className="w-full py-3 text-white transition duration-300 bg-yellow-700 rounded-lg hover:bg-yellow-400"
         >
           Send Message
         </button>

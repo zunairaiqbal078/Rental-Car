@@ -1,4 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import Layout from "./Layout/Layout";
@@ -16,16 +21,63 @@ import Cars from "./pages/admin-pages/Cars";
 import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import ClientLayout from "./Layout/clientLayout";
-import LiveChat from "./pages/userDashboard/LiveChat";
+import LiveChat from "./Components/common/chat/liveChat";
 import UserDashboard from "./pages/userDashboard/dashboard";
 import AllUser from "./Components/admin/AllUser";
 import Profile from "./pages/userDashboard/profile";
 import Booked from "./pages/userDashboard/booked";
-import Messages from "./pages/admin-pages/Messages";
+import store from "./store/store.js";
+import { Provider } from "react-redux";
+import NewCar from "./pages/admin-pages/NewCar.jsx";
+import AdminProfile from "./pages/admin-pages/AdminProfile.jsx";
 
 function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        {/* Auth Routes */}
+        <Route path="/" element={<AuthLayout />}>
+          <Route path="login" element={<LogIn />} />
+          <Route path="signup" element={<SignUp />} />
+        </Route>
+
+        {/* Client Routes */}
+        <Route path="/" element={<Layout />}>
+          <Route path="explore/viewDetails/:id" element={<ViewDetails />} />
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<ContactUs />} />
+          <Route path="explore" element={<ExploreCars />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+
+        {/* User Dashboard Routes */}
+        <Route path="/user" element={<ClientLayout />}>
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="livechat" element={<LiveChat />} />
+          <Route path="booking" element={<Booked />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="booking" element={<Booking />} />
+          <Route path="cars" element={<Cars />} />
+          <Route path="new-car" element={<NewCar />} />
+          <Route path="livechat" element={<LiveChat />} />
+          <Route path="profile" element={<AdminProfile />} />
+          <Route path="users" element={<AllUser />} />
+        </Route>
+
+        {/* Not Found Route */}
+        <Route path="*" element={<NotFound />} />
+      </>
+    )
+  );
+
   return (
-    <>
+    <Provider store={store}>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -36,37 +88,8 @@ function App() {
         pauseOnFocusLoss
         pauseOnHover
       />
-
-      <Routes>
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="login" element={<LogIn />} />
-          <Route path="signup" element={<SignUp />} />
-        </Route>
-
-        <Route path="/" element={<Layout />}>
-          <Route path="explore/viewDetails" element={<ViewDetails />} />
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<ContactUs />} />
-          <Route path="explore" element={<ExploreCars />} />
-          <Route path="reviews" element={<Reviews />} />
-        </Route>
-        <Route path="/user" element={<ClientLayout />}>
-          <Route path="dashboard" element={<UserDashboard />} />
-          <Route path="livechat" element={<LiveChat />} />
-          <Route path="booking" element={<Booked />} />
-          <Route path="profile" element={<Profile />} />
-        </Route>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="booking" element={<Booking />} />
-          <Route path="Cars" element={<Cars />} />
-          <Route path="users" element={<AllUser />} />
-          <Route path="messages" element={<Messages />} />
-        </Route>
-        <Route path="/noFound" element={<NotFound />} />
-      </Routes>
-    </>
+      <RouterProvider router={router} />
+    </Provider>
   );
 }
 

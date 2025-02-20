@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: JSON.parse(sessionStorage.getItem("user")) || null,
+  user: sessionStorage.getItem("user")
+    ? JSON.parse(sessionStorage.getItem("user"))
+    : {}, // Use empty object if user is null
   token: sessionStorage.getItem("token"),
   isAuthenticated: !!sessionStorage.getItem("user"),
   isLoading: false,
@@ -14,18 +16,17 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       const { token, user } = action.payload;
-
       state.user = user;
       state.token = token;
       state.isAuthenticated = true;
       state.error = null;
 
-      // Persist in sessionStorage
+      // Persist in session storage
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("user", JSON.stringify(user));
     },
     logoutUser: (state) => {
-      state.user = null;
+      state.user = {};
       state.isAuthenticated = false;
       state.token = null;
       sessionStorage.removeItem("token");

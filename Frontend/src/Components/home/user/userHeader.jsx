@@ -1,8 +1,7 @@
 import React from "react";
-import { FaUserCircle } from "react-icons/fa";
-
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+
 function UserHeader() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
@@ -10,6 +9,9 @@ function UserHeader() {
   const handleProfileClick = () => {
     navigate("/user/profile");
   };
+
+  // Get the first letter of the user's name (fallback to 'U' if name is missing)
+  const firstLetter = user?.name ? user.name.charAt(0).toUpperCase() : "U";
 
   return (
     <header className="flex items-center justify-between px-4 py-3 bg-white shadow-md">
@@ -21,20 +23,27 @@ function UserHeader() {
       {/* Profile Section */}
       <div className="relative flex items-center gap-3">
         <div className="font-semibold text-center text-gray-700 text-md">
-          {user?.name ? ` ${user?.name} !` : "User"}
+          {user?.name ? `${user?.name} !` : "User"}
         </div>
+
         <div
-          className="w-10 h-10 overflow-hidden bg-gray-300 rounded-full cursor-pointer"
+          className="flex items-center justify-center w-10 h-10 overflow-hidden text-lg font-bold text-white bg-gray-300 rounded-full cursor-pointer"
           onClick={handleProfileClick}
         >
           {user?.photo ? (
             <img
               src={user.photo}
-              alt="Profile"
+              alt=""
               className="object-cover w-full h-full"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = ""; // Fallback to letter avatar if image fails
+              }}
             />
           ) : (
-            <FaUserCircle size={40} className="text-gray-500" />
+            <span className="flex items-center justify-center w-full h-full bg-cyan-600">
+              {firstLetter}
+            </span>
           )}
         </div>
       </div>

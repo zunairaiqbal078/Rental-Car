@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -18,7 +19,7 @@ const userSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      default: "default_user.jpg", // Default profile picture
+      // Default profile picture
     },
     password: {
       type: String,

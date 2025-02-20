@@ -6,7 +6,7 @@ import { TiSocialTwitter } from "react-icons/ti";
 function Footer() {
   return (
     <>
-      <footer className="px-6 py-12 bg-cyan-950">
+      <footer className="px-6 py-12 bg-gradient-to-r from-cyan-900 to-blue-900">
         <div className="flex flex-col gap-12 mx-auto max-w-7xl md:flex-row md:justify-between">
           {/* Newsletter Section */}
           <div className="flex-1">

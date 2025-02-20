@@ -24,6 +24,7 @@ const formDataInstance = axios.create({
 
 const apiURL = axios.create({
   baseURL: API_URL,
+  withCredentials: true,
   headers: {
     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     "Content-Type": "multipart/form-data",

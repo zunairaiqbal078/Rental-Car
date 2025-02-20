@@ -6,18 +6,18 @@ import HelpUsSection from "../../Components/home/LandingPage/HelpUsSection";
 import LoginSection from "../../Components/home/LandingPage/LoginSection";
 import ExploreSection from "../../Components/home/LandingPage/ExploreSection";
 import FaqSection from "../../Components/home/LandingPage/FaqSection";
-
+import Reviews from "../../Components/home/Reviews/ReviewSlider";
+import Featured from "../../Components/home/LandingPage/FeaturedCar";
 function Home() {
   return (
     <>
       <HeroSection />
+      <Featured />
       <CardSection />
       <HelpUsSection />
       <LoginSection />
-      <h1 className="my-4 text-2xl font-bold text-center">
-        Where do you <span className="text-yellow-400">want to go?</span>
-      </h1>
       <ExploreSection />
+      <Reviews />
       <FaqSection />
     </>
   );

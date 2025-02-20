@@ -1,15 +1,18 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import image from ".././assets/signup.png";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { register as registerUser } from "../api/authApi";
+import "aos/dist/aos.css";
+import AOS from "aos";
+
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
+
   // React Form Hook
   const {
     register,
@@ -18,13 +21,18 @@ function SignUp() {
     reset,
     formState: { errors },
   } = useForm();
+
   const password = watch("password");
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
   const onSubmit = async (data) => {
     try {
       await registerUser(data);
       toast.success("Registration successful!");
-      navigate("/auth/login");
+      navigate("/login");
     } catch (error) {
       toast.error(error.message);
     }
@@ -32,35 +40,56 @@ function SignUp() {
     reset();
   };
 
-  const onHandlepassword = (e) => {
+  const onHandlePassword = (e) => {
     e.preventDefault();
     setShowConfirmPassword(!showConfirmPassword);
   };
+
   const passwordDisplay = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
-      <div className="flex flex-row w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-slate-100">
-        <div className="flex flex-col items-center justify-center w-1/2 text-white bg-gradient-to-r from-purple-800 via-teal-600 to-emerald-700">
-          <h2 className="text-3xl font-bold">Already Member?</h2>
-          <p className="mt-2 text-center text-gray-200">
+      <div
+        className="flex flex-row w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-slate-100"
+        data-aos="fade-up"
+      >
+        {/* Left Section */}
+
+        <div className="flex flex-col justify-center w-full p-8 bg bg-gradient-to-t from-cyan-800/80 via-amber-200 to-cyan-900/70 lg:w-1/2">
+          <h1
+            className="text-3xl font-semibold text-gray-800"
+            data-aos="fade-right"
+          >
+            New Here!
+          </h1>
+          <p
+            className="mt-4 text-gray-600"
+            data-aos="fade-right"
+            data-aos-delay="200"
+          >
             Sign In and discover a great experience with us!
           </p>
-          <img className="w-1/2 mt-10 mb-8" src={image} alt=" image" />
-          <Link to="/auth/login">
-            <button className="px-6 py-2 mt-6 text-lg font-semibold bg-white rounded-md text-neutral-700 hover:focus:outline-none focus:ring-2 focus:ring-indigo-300">
-              Log In
-            </button>
-          </Link>
+          <img
+            src="https://source.unsplash.com/400x300/?workspace,technology"
+            alt="Login visual"
+            className="w-full mt-6 rounded-lg"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          />
         </div>
+        {/* Right Section */}
         <div className="w-1/2 px-10 py-12">
-          <h1 className="text-3xl font-bold text-center text-gray-800">
+          <h1
+            className="text-3xl font-bold text-center text-gray-800"
+            data-aos="fade-left"
+          >
             Sign Up
           </h1>
-          <p className="mt-2 text-center text-gray-600">
-            Sign Up to new account
+          <p className="mt-2 text-center text-gray-600" data-aos="fade-left">
+            Sign up for a new account
           </p>
 
           <form
@@ -77,7 +106,7 @@ function SignUp() {
                 required: "Username Required*",
                 pattern: {
                   value: /^(?=.*[a-zA-Z])[a-zA-Z0-9]{5,}$/,
-                  message: " UserName is shorter than 8 letters",
+                  message: "Username is shorter than 5 letters",
                 },
               })}
             />
@@ -86,6 +115,7 @@ function SignUp() {
                 {errors.name.message}
               </p>
             )}
+
             <label htmlFor="email">Email:</label>
             <input
               id="email"
@@ -95,8 +125,8 @@ function SignUp() {
               {...register("email", {
                 required: "Email Required*",
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i,
-                  message: "invalid email address",
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
                 },
               })}
             />
@@ -105,8 +135,9 @@ function SignUp() {
                 {errors.email.message}
               </p>
             )}
+
             <label htmlFor="password">Password:</label>
-            <div className="relative flex flex-row ">
+            <div className="relative flex flex-row">
               <input
                 id="password"
                 placeholder="Password"
@@ -116,7 +147,7 @@ function SignUp() {
                   required: "Password Required*",
                   pattern: {
                     value:
-                      "/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z]).{8}$/",
+                      " /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z]).{8}$/",
                     message:
                       "Password must be at least 8 characters long, contain uppercase, lowercase, a digit, and a special character",
                   },
@@ -135,23 +166,24 @@ function SignUp() {
                 {errors.password.message}
               </p>
             )}
+
             <label htmlFor="confirmPassword">Confirm Password:</label>
-            <div className="relative flex flex-row ">
+            <div className="relative flex flex-row">
               <input
                 id="confirmPassword"
-                placeholder="Password"
+                placeholder="Confirm Password"
                 type={showConfirmPassword ? "text" : "password"}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 {...register("confirmPassword", {
-                  required: "Confirm password Required*",
+                  required: "Confirm Password Required*",
                   validate: (value) =>
                     value === password || "Passwords do not match",
                 })}
-                autoComplete=" newpassword"
+                autoComplete="new-password"
               />
               <button
                 className="absolute right-4 top-3"
-                onClick={onHandlepassword}
+                onClick={onHandlePassword}
               >
                 {showConfirmPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </button>
@@ -161,13 +193,24 @@ function SignUp() {
                 {errors.confirmPassword.message}
               </p>
             )}
-            <div className="">
+
+            <div>
               <button
                 type="submit"
-                className="w-full px-4 py-2 mt-8 text-white rounded-md bg-gradient-to-r from-purple-600 to-emerald-500 hover:focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                className="w-full px-4 py-2 mt-6 text-white bg-yellow-700 rounded-md shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
                 Sign Up
               </button>
+            </div>
+
+            <div className="mt-6 text-center text-gray-500">
+              Already have a member?{" "}
+              <Link
+                to="/login"
+                className="font-medium text-cyan-950 hover:underline"
+              >
+                Log in
+              </Link>
             </div>
           </form>
         </div>

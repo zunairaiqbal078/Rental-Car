@@ -1,0 +1,10 @@
+MONGODB= mongodb://localhost:27017/RentalCar
+PORT=4000
+SECRET_KEY=zunaiytrekujmynhgbiuyuf
+NODE_ENV=development
+
+EMAIL_ADMIN=
+EMAIL_PASS=
+CLOUD_NAME=
+API_ACCESS_KEY=
+SECRET_ACCESS_KEY=
