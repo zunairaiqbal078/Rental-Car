@@ -67,7 +67,6 @@ const ProfileEdit = ({ user, onSave, onCancel }) => {
       }
 
       await onSave(formData);
-      toast.success("Profile updated successfully!");
     } catch (error) {
       console.error("Error saving profile:", error);
       toast.error("Failed to update profile!");
@@ -76,7 +75,7 @@ const ProfileEdit = ({ user, onSave, onCancel }) => {
 
   return (
     <div className="flex items-center justify-center min-h-[80vh]  p-4 ">
-      <div className="w-full max-w-md p-8 bg-white shadow-xl rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50">
+      <div className="w-full max-w-md p-8 bg-white shadow-xl rounded-2xl">
         <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
           Update Your Profile
         </h2>
@@ -85,19 +84,19 @@ const ProfileEdit = ({ user, onSave, onCancel }) => {
           {/* Profile Photo */}
           <div className="flex flex-col items-center mb-8">
             <div className="relative group">
-              <div className="w-32 h-32 overflow-hidden transition duration-300 border-4 rounded-full shadow-lg border-cyan-100 group-hover:border-cyan-200">
+              <div className="w-32 h-32 overflow-hidden transition duration-300 border-2 rounded-full shadow-lg border-cyan-500 group-hover:border-cyan-100">
                 <img
                   src={
                     previewImage ||
                     "https://via.placeholder.com/128?text=Profile"
                   }
-                  alt="Profile Preview"
+                  alt=" "
                   className="object-cover w-full h-full"
                 />
               </div>
               <label
                 htmlFor="file"
-                className="absolute bottom-0 right-0 p-2 transition duration-300 rounded-full shadow-md cursor-pointer bg-cyan-500 hover:bg-cyan-600"
+                className="absolute bottom-0 right-0 p-2 transition duration-300 rounded-full shadow-md cursor-pointer bg-cyan-800 hover:bg-cyan-600"
               >
                 <FaCamera className="text-white" />
               </label>
@@ -235,14 +234,14 @@ const ProfileEdit = ({ user, onSave, onCancel }) => {
           <div className="flex justify-center mt-6 space-x-4">
             <button
               type="submit"
-              className="px-6 py-2 text-white transition-all duration-200 transform rounded-full shadow-md hover:scale-105 bg-cyan-700 hover:bg-cyan-800 focus:ring focus:ring-cyan-300"
+              className="px-6 py-2 text-white transition-all duration-200 transform rounded-full shadow-md hover:scale-105 bg-gradient-to-r from-cyan-900 to-blue-900 "
             >
               Save Changes
             </button>
             <button
               type="button"
               onClick={onCancel}
-              className="px-6 py-2 text-white transition-all duration-200 transform bg-gray-500 rounded-full shadow-md hover:scale-105 hover:bg-gray-600 focus:ring focus:ring-gray-300"
+              className="px-6 py-2 text-white transition-all duration-200 transform bg-gray-400 rounded-full shadow-md hover:scale-105 hover:bg-gray-500 focus:ring focus:ring-gray-300"
             >
               Cancel
             </button>

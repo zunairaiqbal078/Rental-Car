@@ -12,7 +12,7 @@ const authRouter = require("./routes/authRouter");
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 const carRoute = require("./routes/carRoute");
-const createAdmin = require("./controller/addAdmin");
+// const createAdmin = require("./controller/addAdmin");
 
 dotenv.config();
 
@@ -38,7 +38,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //Seed Admin
-createAdmin();
+// createAdmin();
 // Routes
 app.use("/car", carRoute);
 app.use("/auth", authRouter);

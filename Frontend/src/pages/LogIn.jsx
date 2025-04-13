@@ -33,7 +33,7 @@ function LogIn() {
       dispatch(setUser(response));
       const role = response.user.role;
       if (role === "admin") {
-        navigate("/admin");
+        navigate("/admin/dashboard");
       } else {
         navigate("/");
       }

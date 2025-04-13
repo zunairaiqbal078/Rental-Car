@@ -11,7 +11,7 @@ function AdminLayout() {
       <div className="flex flex-col flex-grow">
         <AdminHeader />
 
-        <div className="flex-grow p-4 overflow-y-auto">
+        <div className="flex-grow p-4 overflow-y-auto bg-gray-100">
           <Outlet />
         </div>
       </div>

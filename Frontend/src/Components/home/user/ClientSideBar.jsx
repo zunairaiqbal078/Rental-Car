@@ -36,12 +36,19 @@ function UserSidebar() {
     <div
       className={`${
         isSidebarOpen ? "w-64" : "w-20"
-      } bg-gradient-to-r from-cyan-900 to-blue-900 text-white flex flex-col transition-all duration-300`}
+      } text-gray-600 flex flex-col transition-all duration-300 shadow-lg `}
     >
       {/* Sidebar Toggle */}
-      <div className="flex items-center justify-between px-4 py-5 border-b border-gray-700">
+      <div className="flex items-center px-4 py-4 shadow-sm">
+        <h1
+          className={`text-2xl font-bold text-cyan-950 flex-grow text-center ${
+            !isSidebarOpen && "hidden"
+          }`}
+        >
+          Dashboard
+        </h1>
         <button
-          className="px-4 text-xl text-white"
+          className="m-auto text-xl "
           onClick={() => setSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? <FaTimes /> : <FaBars />}
@@ -71,12 +78,14 @@ function UserSidebar() {
             key={link.to}
             to={link.to}
             className={({ isActive }) =>
-              `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-                isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+              `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium  ${
+                isActive
+                  ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                  : "text-gray-600 hover:bg-gray-200  hover:scale-100"
               }`
             }
           >
-            <span className="text-lg">{link.icon}</span>
+            <span className="text-xl">{link.icon}</span>
             <span className={`${!isSidebarOpen && "hidden"}`}>
               {link.label}
             </span>
@@ -88,9 +97,9 @@ function UserSidebar() {
       <div className="flex flex-col p-4 mb-4">
         <button
           onClick={() => setSettingsOpen(!isSettingsOpen)}
-          className="flex items-center px-4 py-2 text-sm font-medium text-white rounded-md gap-x-4 hover:bg-gray-700"
+          className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-md gap-x-4 hover:bg-gray-200"
         >
-          <FaCog className="text-lg" />
+          <FaCog className="text-xl" />
           <span className={`${!isSidebarOpen && "hidden"}`}>Settings</span>
         </button>
 
@@ -98,16 +107,22 @@ function UserSidebar() {
           <div className="mt-2 space-y-2">
             <NavLink
               to="/user/profile"
-              className="flex items-center px-4 py-2 text-sm font-medium rounded-md gap-x-4 hover:bg-gray-700"
+              className={({ isActive }) =>
+                `flex items-center gap-x-4 px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                  isActive
+                    ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                    : "text-gray-600 hover:bg-gray-200 hover:shadow-md    hover:scale-100"
+                }`
+              }
             >
-              <FaUser className="text-md" />
+              <FaUser className="text-xl" />
               <span className={`${!isSidebarOpen && "hidden"}`}>Profile</span>
             </NavLink>
             <button
               onClick={handleLogout}
-              className="flex items-center w-full px-4 py-2 text-sm font-medium text-white rounded-md gap-x-4 hover:bg-gray-700"
+              className="flex items-center w-full px-4 py-3 text-base font-semibold text-gray-600 transition-all duration-300 rounded-lg gap-x-4 hover:bg-red-600 hover:text-white"
             >
-              <FaSignOutAlt className="text-md" />
+              <FaSignOutAlt className="text-xl" />
               <span className={`${!isSidebarOpen && "hidden"}`}>Logout</span>
             </button>
           </div>

@@ -74,13 +74,13 @@ const AllUser = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gradient-to-r from-cyan-900 to-blue-900">
                   <tr>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-900 uppercase">
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                       User
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-900 uppercase">
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                       Email
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-900 uppercase">
+                    <th className="px-6 py-3 text-xs font-medium tracking-wider text-right text-white uppercase">
                       Actions
                     </th>
                   </tr>

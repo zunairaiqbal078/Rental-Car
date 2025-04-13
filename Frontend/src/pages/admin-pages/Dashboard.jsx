@@ -1,7 +1,12 @@
 import React from "react";
+import Dashobard from "../../Components/admin/AdminDashboard/Dashobard";
 
-function Dashboard() {
-  return <div>Dashboard</div>;
-}
+const Dashboard = () => {
+  return (
+    <>
+      <Dashobard />
+    </>
+  );
+};
 
 export default Dashboard;

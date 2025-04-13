@@ -15,16 +15,16 @@ function AdminHeader() {
   const firstLetter = user?.name ? user.name.charAt(0).toUpperCase() : "U";
 
   return (
-    <header className="flex items-center justify-between px-4 py-3 bg-white shadow-md">
+    <header className="flex items-center justify-between px-4 py-3 bg-white shadow-lg">
       {/* Logo */}
-      <div className="text-xl font-bold text-gray-600">
-        <Link to="/">LuxeRental</Link>
+      <div className="text-xl font-bold text-gray-700">
+        <Link to="/">LuxeRentals</Link>
       </div>
 
       {/* Profile Section */}
-      <div className="relative flex items-center gap-3">
+      <div className="relative flex items-center gap-3 ">
         <div className="font-semibold text-center text-gray-700 text-md">
-          {user?.name ? `${user?.name} !` : "User"}
+          {user?.name ? `${user?.name} ` : "User"}
         </div>
 
         <div

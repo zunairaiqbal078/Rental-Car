@@ -9,10 +9,10 @@ const ProfileView = ({ user, onEdit }) => {
       <h1 className="mb-5 text-3xl font-bold text-center">Profile</h1>
 
       {/* Profile Card */}
-      <div className="w-full max-w-md p-8 transition-all duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl bg-gradient-to-br from-blue-50 to-cyan-50">
+      <div className="w-full max-w-md p-8 transition-all duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl">
         {/* User Photo or First Letter */}
         <div className="relative flex flex-col items-center">
-          <div className="absolute top-0 w-32 h-32 rounded-full opacity-50 bg-gradient-to-r from-yellow-300 to-yellow-400 blur-md"></div>
+          <div className="absolute top-0 w-32 h-32 rounded-full opacity-50 bg-gradient-to-r from-blue-200 to-cyan-300 blur-md"></div>
 
           <div className="relative">
             {user?.photo ? (
@@ -30,17 +30,6 @@ const ProfileView = ({ user, onEdit }) => {
                 {firstLetter}
               </div>
             )}
-
-            <div className="absolute bottom-0 right-0 bg-cyan-800 rounded-full p-1.5 border-2 border-white shadow">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 text-white"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-              </svg>
-            </div>
           </div>
 
           <h2 className="mt-4 text-2xl font-bold text-gray-800">
@@ -49,7 +38,7 @@ const ProfileView = ({ user, onEdit }) => {
           <div className="flex items-center mt-1 space-x-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 text-cyan-500"
+              className="w-4 h-4 text-cyan-600"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -64,10 +53,10 @@ const ProfileView = ({ user, onEdit }) => {
 
         {/* User Information Section */}
         <div className="pt-6 mt-8 border-t border-gray-100">
-          <div className="p-4 rounded-lg bg-gradient-to-r from-cyan-50 to-blue-50">
+          <div className="p-4 bg-gray-100 rounded-lg">
             <p className="leading-relaxed text-center text-gray-700">
               Hello{" "}
-              <span className="font-semibold text-cyan-600">
+              <span className="font-semibold text-cyan-800">
                 {user?.name || "User"}!
               </span>
               ,
@@ -81,7 +70,7 @@ const ProfileView = ({ user, onEdit }) => {
           <div className="flex justify-center mt-6 space-x-4">
             <button
               onClick={onEdit}
-              className="px-6 py-2.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 flex items-center"
+              className="px-6 py-2.5 bg-gradient-to-r from-cyan-900 to-blue-900 text-white rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 flex items-center"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
