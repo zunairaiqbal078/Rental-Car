@@ -14,15 +14,15 @@ function UserHeader() {
   const firstLetter = user?.name ? user.name.charAt(0).toUpperCase() : "U";
 
   return (
-    <header className="flex items-center justify-between px-4 py-3 bg-white shadow-md">
+    <header className="flex items-center justify-between px-4 py-3 shadow-md opacity-75 bg-gradient-to-r from-cyan-900 to-blue-900">
       {/* Logo */}
-      <div className="text-xl font-bold text-gray-600">
+      <div className="text-xl font-bold text-white">
         <Link to="/">LuxeRental</Link>
       </div>
 
       {/* Profile Section */}
       <div className="relative flex items-center gap-3">
-        <div className="font-semibold text-center text-gray-700 text-md">
+        <div className="font-semibold text-center text-white text-md">
           {user?.name ? `${user?.name} !` : "User"}
         </div>
 

@@ -41,15 +41,19 @@ function AdminSidebar() {
     <div
       className={`${
         isSidebarOpen ? "w-64" : "w-18"
-      } bg-gradient-to-r from-cyan-900 to-blue-900 text-white flex flex-col transition-all duration-300`}
+      }  text-gray-600 flex flex-col transition-all duration-300 shadow-lg `}
     >
       {/* Sidebar Header */}
-      <div className="flex items-center justify-between px-4 py-4 border-b border-gray-600">
-        <h1 className={`text-lg font-bold ${!isSidebarOpen && "hidden"}`}>
-          LuxeRental
+      <div className="flex items-center px-4 py-4 shadow-sm">
+        <h1
+          className={`text-2xl font-bold text-cyan-950 flex-grow text-center ${
+            !isSidebarOpen && "hidden"
+          }`}
+        >
+          Dashboard
         </h1>
         <button
-          className="px-4 text-xl"
+          className="m-auto text-xl "
           onClick={() => setSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? <FaTimes /> : <FaBars />}
@@ -61,24 +65,28 @@ function AdminSidebar() {
         <NavLink
           to="/admin/dashboard"
           className={({ isActive }) =>
-            `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-              isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+            `flex items-center gap-x-4 px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                : "text-gray-600 hover:bg-gray-200  hover:scale-100"
             }`
           }
         >
-          <FaTachometerAlt className="text-lg" />
+          <FaTachometerAlt className="text-xl" />
           <span className={`${!isSidebarOpen && "hidden"}`}>Dashboard</span>
         </NavLink>
 
         <NavLink
           to="/admin/users"
           className={({ isActive }) =>
-            `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-              isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+            `flex items-center gap-x-4 px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                : "text-gray-600 hover:bg-gray-200 hover:shadow-md    hover:scale-100"
             }`
           }
         >
-          <FaUsers className="text-lg" />
+          <FaUsers className="text-xl" />
           <span className={`${!isSidebarOpen && "hidden"}`}>Users</span>
         </NavLink>
 
@@ -86,10 +94,10 @@ function AdminSidebar() {
         <div>
           <button
             onClick={() => setCategoriesOpen(!isCategoriesOpen)}
-            className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium rounded-md hover:bg-gray-700"
+            className="flex items-center justify-between w-full px-4 py-3 text-base font-semibold text-gray-600 transition-all duration-300 rounded-lg hover:bg-gray-200 "
           >
             <div className="flex items-center gap-x-4">
-              <FaListAlt className="text-lg" />
+              <FaListAlt className="text-xl" />
               <span className={`${!isSidebarOpen && "hidden"}`}>
                 Categories
               </span>
@@ -102,27 +110,31 @@ function AdminSidebar() {
           </button>
 
           {isCategoriesOpen && (
-            <div className="space-y-2">
+            <div className="space-y-2 ">
               <NavLink
                 to="/admin/new-car"
                 className={({ isActive }) =>
-                  `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-                    isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+                  `flex items-center gap-x-4 px-4 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                      : "text-gray-600 hover:bg-gray-200 hover:shadow-md    hover:scale-100"
                   }`
                 }
               >
-                <FaCar className="text-md" />
+                <FaCar className="text-lg" />
                 <span className={`${!isSidebarOpen && "hidden"}`}>New Car</span>
               </NavLink>
               <NavLink
                 to="/admin/cars"
                 className={({ isActive }) =>
-                  `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-                    isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+                  `flex items-center gap-x-4 px-4 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                      : "text-gray-600 hover:bg-gray-200 hover:shadow-md    hover:scale-100"
                   }`
                 }
               >
-                <FaCar className="text-md" />
+                <FaCar className="text-lg" />
                 <span className={`${!isSidebarOpen && "hidden"}`}>
                   Car Lists
                 </span>
@@ -134,24 +146,28 @@ function AdminSidebar() {
         <NavLink
           to="/admin/booking"
           className={({ isActive }) =>
-            `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-              isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+            `flex items-center gap-x-4 px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                : "text-gray-600 hover:bg-gray-200 hover:shadow-md    hover:scale-100"
             }`
           }
         >
-          <FaCalendarAlt className="text-lg" />
+          <FaCalendarAlt className="text-xl" />
           <span className={`${!isSidebarOpen && "hidden"}`}>Bookings</span>
         </NavLink>
 
         <NavLink
           to="/admin/livechat"
           className={({ isActive }) =>
-            `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-              isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+            `flex items-center gap-x-4 px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                : "text-gray-600 hover:bg-gray-200 hover:shadow-md    hover:scale-100"
             }`
           }
         >
-          <IoChatbubblesOutline className="text-lg" />
+          <IoChatbubblesOutline className="text-xl" />
           <span className={`${!isSidebarOpen && "hidden"}`}>Live Chat</span>
         </NavLink>
       </nav>
@@ -160,9 +176,9 @@ function AdminSidebar() {
       <div className="flex flex-col p-4 mb-4">
         <button
           onClick={() => setSettingsOpen(!isSettingsOpen)}
-          className="flex items-center px-4 py-2 text-sm font-medium text-white rounded-md gap-x-4 hover:bg-gray-700"
+          className="flex items-center px-4 py-3 text-base font-semibold text-gray-600 transition-all duration-300 rounded-lg gap-x-4 hover:bg-gray-200 "
         >
-          <FaCog className="text-lg" />
+          <FaCog className="text-xl" />
           <span className={`${!isSidebarOpen && "hidden"}`}>Settings</span>
         </button>
 
@@ -171,19 +187,21 @@ function AdminSidebar() {
             <NavLink
               to="/admin/profile"
               className={({ isActive }) =>
-                `flex items-center gap-x-4 px-4 py-2 rounded-md text-sm font-medium ${
-                  isActive ? "bg-yellow-500 text-white" : "hover:bg-gray-600"
+                `flex items-center gap-x-4 px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                  isActive
+                    ? "bg-gradient-to-r from-cyan-900 to-blue-900 text-white shadow-md"
+                    : "text-gray-600 hover:bg-gray-200 hover:shadow-md    hover:scale-100"
                 }`
               }
             >
-              <FaUser className="text-md" />
+              <FaUser className="text-lg" />
               <span className={`${!isSidebarOpen && "hidden"}`}>Profile</span>
             </NavLink>
             <button
               onClick={handleLogout}
-              className="flex items-center w-full px-4 py-2 text-sm font-medium text-white rounded-md gap-x-4 hover:bg-gray-700"
+              className="flex items-center w-full px-4 py-3 text-base font-semibold text-gray-600 transition-all duration-300 rounded-lg gap-x-4 hover:bg-red-600 hover:text-white"
             >
-              <FaSignOutAlt className="text-md" />
+              <FaSignOutAlt className="text-lg" />
               <span className={`${!isSidebarOpen && "hidden"}`}>Logout</span>
             </button>
           </div>

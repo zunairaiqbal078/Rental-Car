@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { createCar } from "../../../api/carApi";
-
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { editCar } from "../../../store/car-slice";
 import {
   FaCar,
   FaMapMarkerAlt,
@@ -23,7 +26,10 @@ export default function CreateCar() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [previewUrls, setPreviewUrls] = useState([]);
-
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const carData = location.state?.car || null;
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -34,9 +40,24 @@ export default function CreateCar() {
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      availability: true,
+      name: carData?.name || "",
+      type: carData?.type || "",
+      brand: carData?.brand || "",
+      images: carData?.images || [],
+      mileage: carData?.mileage || "",
+      location: carData?.location || "",
+      pricePerDay: carData?.pricePerDay || "",
+      fuelType: carData?.fuelType || "",
+      description: carData?.description || "",
+      availability: carData?.availability ?? true,
     },
   });
+
+  useEffect(() => {
+    if (carData?.images) {
+      setPreviewUrls(carData.images);
+    }
+  }, [carData]);
 
   const handleNext = async () => {
     const fieldsToValidate = {
@@ -58,49 +79,42 @@ export default function CreateCar() {
     const files = Array.from(e.target.files);
     setImages((prevImages) => [...prevImages, ...files]);
 
-    // Create preview URLs for the newly added images
     const newPreviewUrls = files.map((file) => URL.createObjectURL(file));
     setPreviewUrls((prevUrls) => [...prevUrls, ...newPreviewUrls]);
   };
 
   const removeImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
-
-    // Revoke the URL to prevent memory leaks
     URL.revokeObjectURL(previewUrls[index]);
     setPreviewUrls(previewUrls.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data) => {
-    if (images.length === 0) {
-      alert("Please upload at least one image of the car");
-      return;
-    }
-
     setLoading(true);
     try {
       const formData = new FormData();
-
-      // Append text fields
       Object.keys(data).forEach((key) => {
         if (data[key] !== undefined) formData.append(key, data[key]);
       });
 
-      // Append images
-      images.forEach((image) => {
-        formData.append("images", image);
-      });
+      images.forEach((image) => formData.append("images", image));
 
-      const response = await createCar(formData);
+      if (carData) {
+        await updateCar(carData._id, formData);
+        dispatch(editCar({ id: carData._id, updatedCar: data }));
+        toast.success("Car updated successfully!");
+      } else {
+        await createCar(formData);
+        toast.success("Car created successfully!");
+      }
 
-      toast.success("Car created successfully!");
       reset();
       setImages([]);
       setPreviewUrls([]);
       setActiveStep(0);
+      navigate("/admin/cars");
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error(error.message);
+      toast.error("Something went wrong!");
     }
     setLoading(false);
   };
@@ -108,11 +122,11 @@ export default function CreateCar() {
   return (
     <div className="max-w-4xl p-8 mx-auto mt-8 bg-white shadow-xl rounded-xl">
       <h1 className="mb-6 text-3xl font-bold text-center text-gray-800">
-        Add New Car
+        {carData ? "Edit Car" : "Add New Car"}
       </h1>
 
       {/* Stepper */}
-      <div className="flex items-center justify-between mb-8">
+      {/* <div className="flex items-center justify-between mb-8">
         {steps.map((step, index) => (
           <div key={index} className="flex flex-col items-center">
             <div className="flex items-center">
@@ -158,6 +172,39 @@ export default function CreateCar() {
                   : index < activeStep
                   ? "text-green-500"
                   : "text-gray-500"
+              }`}
+            >
+              {step.label}
+            </span>
+          </div>
+        ))}
+      </div> */}
+      <div className="flex items-center justify-between mb-8">
+        {steps.map((step, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <div className="flex items-center">
+              <div
+                className={`flex items-center justify-center w-12 h-12 rounded-full transition-all ${
+                  index < activeStep
+                    ? "bg-green-500 text-white"
+                    : index === activeStep
+                    ? "bg-cyan-800 text-white"
+                    : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                {step.icon}
+              </div>
+              {index < steps.length - 1 && (
+                <div
+                  className={`w-24 h-1 mx-2 ${
+                    index < activeStep ? "bg-green-500" : "bg-gray-200"
+                  }`}
+                />
+              )}
+            </div>
+            <span
+              className={`mt-2 text-sm font-medium ${
+                index === activeStep ? "text-cyan-800" : "text-gray-500"
               }`}
             >
               {step.label}
@@ -272,11 +319,11 @@ export default function CreateCar() {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Price Per Day (USD) *
+                  Price Per Day (PKR) *
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <span className="text-gray-500">$</span>
+                    <span className="text-gray-500">Rs</span>
                   </div>
                   <input
                     {...register("pricePerDay", {
@@ -488,7 +535,7 @@ export default function CreateCar() {
             <button
               type="button"
               onClick={handleNext}
-              className="px-6 py-2.5 text-white bg-cyan-800 rounded-lg shadow-sm hover:bg-cyan-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition duration-200"
+              className="px-6 py-2.5 text-white bg-cyan-800 rounded-lg shadow-sm hover:bg-cyan-900 focus:outline-none  transition duration-200"
             >
               Continue
             </button>
@@ -496,7 +543,7 @@ export default function CreateCar() {
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 text-white bg-cyan-800 rounded-lg shadow-sm hover:bg-cyan-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2.5 text-white bg-cyan-800 rounded-lg shadow-sm hover:bg-cyan-900 focus:outline-none   transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center">Submitting...</span>
