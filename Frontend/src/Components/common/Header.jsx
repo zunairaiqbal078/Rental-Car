@@ -89,7 +89,7 @@ function Header() {
             <img
               src="src/assets/HomeImages/Logo.png"
               alt="Rental Car Logo"
-              className="w-[110px]"
+              className="w-[170px]"
             />
           </div>
 
